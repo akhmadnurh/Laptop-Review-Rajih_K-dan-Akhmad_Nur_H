@@ -1,2 +1,2 @@
-# Backend-Final-Project-Special-Bootcamp-2023---Rajih_K_dan_Akhmad_Nur_H
+# Backend-Final-Project-Special-Bootcamp-2023-Rajih_K_dan_Akhmad_Nur_H
 Final Project
