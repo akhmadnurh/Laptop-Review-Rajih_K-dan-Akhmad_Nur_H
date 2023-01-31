@@ -1,7 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-require("dotenv").config();
 
 const prisma = new PrismaClient();
 
@@ -9,9 +8,9 @@ const prisma = new PrismaClient();
 const expiresIn = 36 * 60 * 60; // 36 Hours
 
 const register = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, username, email, password } = req.body;
   //   console.log(req.body);
-  if (username && email && password) {
+  if (name && username && email && password) {
     // Check username & email availability
     const check = await prisma.user.findFirst({
       where: {
@@ -32,6 +31,14 @@ const register = async (req, res) => {
           },
         });
 
+        // create profile
+        const profile = await prisma.profile.create({
+          data: {
+            userId: data.id,
+            name,
+          },
+        });
+
         res.status(200).json({ msg: "Register success." });
       } catch (error) {
         res.status(500).json({ msg: error.message });
@@ -42,7 +49,7 @@ const register = async (req, res) => {
       });
     }
   } else {
-    res.status(400).json({ msg: "Please insert username, email & password!" });
+    res.status(400).json({ msg: "Please insert required fields!" });
   }
 };
 
