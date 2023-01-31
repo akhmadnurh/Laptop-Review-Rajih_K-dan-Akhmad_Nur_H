@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const getProfileById = async (req, res) => {
-  let { id } = req.body;
+  let { id } = req.params;
   try {
     const findProfile = await prisma.profile.findUnique({
       where: { id: parseInt(id) },
@@ -13,45 +13,29 @@ const getProfileById = async (req, res) => {
   }
 };
 
-const createProfileDetail = async (req, res) => {
+const updateProfileDetail = async (req, res) => {
   let { name, address, phoneNumber, bornDate } = req.body;
-  //   let { id } = req.userId;
-  //   console.log(id);
+  let { userId } = req.user;
 
-  try {
-    if (
-      name === "" ||
-      address === "" ||
-      phoneNumber === "" ||
-      bornDate === ""
-    ) {
-      res.status(400).json({ message: "The name field is requeried." });
-      return;
-    } else if (
-      name === " " ||
-      address === " " ||
-      phoneNumber === " " ||
-      bornDate === " "
-    ) {
-      res.status(400).json({ message: "The name field is requeried." });
-      return;
+  if (name || address || phoneNumber || bornDate) {
+    try {
+      const create = await prisma.profile.update({
+        where: {
+          userId: userId,
+        },
+        data: {
+          name: name,
+          address: address,
+          phoneNumber: phoneNumber,
+          bornDate: new Date(bornDate),
+        },
+      });
+      return res.status(200).json({ message: create });
+    } catch (error) {
+      return res.status(404).json({ message: error.message });
     }
-
-    const create = await prisma.profile.update({
-      where: {
-        id: 1,
-      },
-      data: {
-        name: name,
-        address: address,
-        phoneNumber: phoneNumber,
-        bornDate: new Date(bornDate),
-        userId: parseInt("1"),
-      },
-    });
-    res.status(200).json({ message: create });
-  } catch (error) {
-    res.status(404).json({ message: error.message });
+  } else {
+    return res.status(400).json({ message: "The name field is required." });
   }
 };
-module.exports = { getProfileById, createProfileDetail };
+module.exports = { getProfileById, updateProfileDetail };

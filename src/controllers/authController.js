@@ -64,16 +64,17 @@ const login = async (req, res) => {
           const token = jwt.sign({ userId: data.id }, process.env.JWT_SECRET, {
             expiresIn,
           });
-          res.status(200).json({ msg: "Login success.", token });
+          return res.status(200).json({ msg: "Login success.", token });
         }
       }
 
-      res.status(401).json({ msg: "Login failed." });
+      return res.status(401).json({ msg: "Login failed." });
     } catch (error) {
-      res.status(500).json({ msg: error.message });
+      return res.status(500).json({ msg: error.message });
     }
   } else {
-    res.status(400).json({ msg: "Please insert username & password!" });
+    return res.status(400).json({ msg: "Please insert username & password!" });
   }
 };
+
 module.exports = { register, login };
