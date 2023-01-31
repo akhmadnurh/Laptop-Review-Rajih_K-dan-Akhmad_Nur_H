@@ -15,21 +15,43 @@ const getProfileById = async (req, res) => {
 
 const createProfileDetail = async (req, res) => {
   let { name, address, phoneNumber, bornDate } = req.body;
-  let { id } = req.body;
+  //   let { id } = req.userId;
+  //   console.log(id);
 
   try {
-    if (name === "") {
+    if (
+      name === "" ||
+      address === "" ||
+      phoneNumber === "" ||
+      bornDate === ""
+    ) {
       res.status(400).json({ message: "The name field is requeried." });
-    } else if (name === " ") {
+      return;
+    } else if (
+      name === " " ||
+      address === " " ||
+      phoneNumber === " " ||
+      bornDate === " "
+    ) {
       res.status(400).json({ message: "The name field is requeried." });
+      return;
     }
 
-    const create = await prisma.profile.create({
-      data: { name, address, phoneNumber, bornDate, userId: id },
+    const create = await prisma.profile.update({
+      where: {
+        id: 1,
+      },
+      data: {
+        name: name,
+        address: address,
+        phoneNumber: phoneNumber,
+        bornDate: new Date(bornDate),
+        userId: parseInt("1"),
+      },
     });
-    res.status(200).json({ message: "success create profile" });
+    res.status(200).json({ message: create });
   } catch (error) {
-    res.status(404).json({ message: "Bad Request" });
+    res.status(404).json({ message: error.message });
   }
 };
 module.exports = { getProfileById, createProfileDetail };

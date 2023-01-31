@@ -5,7 +5,7 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-const user = require("./user");
+const user = require("./userRoute");
 
 router.use("/user", user);
 

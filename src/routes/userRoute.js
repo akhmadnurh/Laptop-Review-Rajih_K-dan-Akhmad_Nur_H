@@ -1,6 +1,6 @@
 const express = require("express");
 // Get Module Controller Start
-const { getProfileById, createProfileDetail } = require("../controllers/user");
+const { getProfileById, createProfileDetail } = require("../controllers/userController");
 const router = express.Router();
 
 router.get("/getprofile", getProfileById);
