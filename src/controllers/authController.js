@@ -84,4 +84,31 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+const changePassword = async (req, res) => {
+  let { newPassword, confPassword } = req.body;
+  let { userId } = req.user;
+
+  if (newPassword && confPassword) {
+    try {
+      if (newPassword === confPassword) {
+        let hashedPassword = await bcrypt.hash(newPassword, 10);
+        await prisma.user.update({
+          where: {
+            id: userId,
+          },
+          data: {
+            password: hashedPassword,
+          },
+        });
+        return res.status(200).json({ message: "success change password" });
+      } else {
+        return res.status(400).json({ message: "password not match!" });
+      }
+    } catch (error) {
+      return res.status(404).json({ message: "Bad Request" });
+    }
+  } else {
+    return res.status(400).json({ message: "The name field is required." });
+  }
+};
+module.exports = { register, login, changePassword };

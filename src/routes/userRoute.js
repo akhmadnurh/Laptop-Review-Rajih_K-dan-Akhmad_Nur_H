@@ -1,14 +1,14 @@
 const express = require("express");
 // Get Module Controller Start
+
 const {
   getProfileById,
   updateProfileDetail,
 } = require("../controllers/userController");
+const { jwtAuth } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
-const authHeader = require("../middlewares/auth.header");
-
-router.get("/profile/:id", authHeader, getProfileById);
-router.post("/profile", authHeader, updateProfileDetail);
+router.get("/profile/:id", jwtAuth, getProfileById);
+router.post("/profile", jwtAuth, updateProfileDetail);
 
 module.exports = router;

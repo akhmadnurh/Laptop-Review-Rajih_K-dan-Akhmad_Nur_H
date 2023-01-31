@@ -9,14 +9,13 @@ const jwtAuth = async (req, res, next) => {
       if (err) {
         return res.status(400).json({ msg: "Invalid token." });
       }
-
       req.user = decoded;
 
       next();
     });
+  } else {
+    return res.status(401).json({ msg: "Unauthorized." });
   }
-
-  return res.status(401).json({ msg: "Unauthorized." });
 };
 
 module.exports = { jwtAuth };

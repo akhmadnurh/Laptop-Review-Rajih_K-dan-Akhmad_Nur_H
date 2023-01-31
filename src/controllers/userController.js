@@ -21,12 +21,12 @@ const updateProfileDetail = async (req, res) => {
     try {
       const create = await prisma.profile.update({
         where: {
-          userId: userId,
+          userId,
         },
         data: {
-          name: name,
-          address: address,
-          phoneNumber: phoneNumber,
+          name,
+          address,
+          phoneNumber,
           bornDate: new Date(bornDate),
         },
       });
