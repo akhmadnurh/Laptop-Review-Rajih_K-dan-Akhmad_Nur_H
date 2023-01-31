@@ -100,15 +100,15 @@ const changePassword = async (req, res) => {
             password: hashedPassword,
           },
         });
-        return res.status(200).json({ message: "success change password" });
+        return res.status(200).json({ msg: "success change password" });
       } else {
-        return res.status(400).json({ message: "password not match!" });
+        return res.status(400).json({ msg: "password did not match!" });
       }
     } catch (error) {
-      return res.status(404).json({ message: "Bad Request" });
+      return res.status(500).json({ msg: error.message });
     }
   } else {
-    return res.status(400).json({ message: "The name field is required." });
+    return res.status(400).json({ msg: "The name field is required." });
   }
 };
 module.exports = { register, login, changePassword };
