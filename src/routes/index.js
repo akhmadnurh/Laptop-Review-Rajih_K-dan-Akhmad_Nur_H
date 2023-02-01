@@ -9,7 +9,8 @@ router.get("/", function (req, res, next) {
 
 const { authRouter } = require("./authRoute");
 const user = require("./userRoute");
-const brand = require("./brand");
+const brand = require("./brandRoute");
+const product = require("./productRoute");
 
 const options = {
   customCssUrl:
@@ -24,5 +25,6 @@ router.use(
 router.use("/", user);
 router.use("/", authRouter);
 router.use("/", brand);
+router.use("/", product);
 
 module.exports = router;
