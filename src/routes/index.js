@@ -7,10 +7,11 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-const { authRouter } = require("./authRoute");
+const auth = require("./authRoute");
 const user = require("./userRoute");
 const brand = require("./brandRoute");
 const product = require("./productRoute");
+const comment = require("./commentRoute");
 
 const options = {
   customCssUrl:
@@ -23,8 +24,9 @@ router.use(
   swaggerUi.setup(swaggerDocument, options)
 );
 router.use("/", user);
-router.use("/", authRouter);
+router.use("/", auth);
 router.use("/", brand);
 router.use("/", product);
+router.use("/", comment);
 
 module.exports = router;

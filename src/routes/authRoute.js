@@ -5,12 +5,12 @@ const {
   changePassword,
 } = require("../controllers/authController");
 const { userAuth } = require("../middlewares/authMiddleware");
-const authRouter = express.Router();
+const router = express.Router();
 
 const basePath = "";
 
-authRouter.post(`${basePath}/register`, register);
-authRouter.post(`${basePath}/login`, login);
-authRouter.patch(`${basePath}/password`, userAuth, changePassword);
+router.post(`${basePath}/register`, register);
+router.post(`${basePath}/login`, login);
+router.patch(`${basePath}/password`, userAuth, changePassword);
 
-module.exports = { authRouter };
+module.exports = router;
