@@ -45,4 +45,5 @@ const updateProfileDetail = async (req, res) => {
     return res.status(400).json({ message: "The name field is required." });
   }
 };
+
 module.exports = { getProfileById, updateProfileDetail };

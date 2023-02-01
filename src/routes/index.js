@@ -10,6 +10,7 @@ router.get("/", function (req, res, next) {
 const { authRouter } = require("./authRoute");
 const user = require("./userRoute");
 const brand = require("./brand");
+const reaview = require("./reaviewRoute");
 
 const options = {
   customCssUrl:
@@ -24,5 +25,6 @@ router.use(
 router.use("/", user);
 router.use("/", authRouter);
 router.use("/", brand);
+router.use("/", reaview);
 
 module.exports = router;
