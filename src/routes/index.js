@@ -10,7 +10,16 @@ router.get("/", function (req, res, next) {
 const { authRouter } = require("./authRoute");
 const user = require("./userRoute");
 
-router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+const options = {
+  customCssUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.js",
+};
+
+router.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, options)
+);
 router.use("/", user);
 router.use("/", authRouter);
 

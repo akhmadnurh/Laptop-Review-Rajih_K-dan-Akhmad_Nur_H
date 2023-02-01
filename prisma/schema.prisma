@@ -21,7 +21,7 @@ model User {
   profile   Profile?
   review    Review[]
   sender    Message[] @relation("sender")
-  receiveer Message[] @relation("receiver")
+  receiver  Message[] @relation("receiver")
   comment   Comment[]
 }
 

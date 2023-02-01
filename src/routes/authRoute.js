@@ -4,13 +4,13 @@ const {
   login,
   changePassword,
 } = require("../controllers/authController");
-const { jwtAuth } = require("../middlewares/authMiddleware");
+const { userAuth } = require("../middlewares/authMiddleware");
 const authRouter = express.Router();
 
 const basePath = "";
 
 authRouter.post(`${basePath}/register`, register);
 authRouter.post(`${basePath}/login`, login);
-authRouter.patch(`${basePath}/password`, jwtAuth, changePassword);
+authRouter.patch(`${basePath}/password`, userAuth, changePassword);
 
 module.exports = { authRouter };

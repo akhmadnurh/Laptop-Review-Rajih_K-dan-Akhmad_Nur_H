@@ -10,7 +10,7 @@
   "paths": {
     "/register": {
       "post": {
-        "description": "Register new account",
+        "description": "Register new account. (role only can be filled with 'admin' or 'user')",
         "parameters": [],
         "tags": ["Authentications"],
         "requestBody": {
@@ -23,7 +23,8 @@
                   "name": { "type": "string" },
                   "username": { "type": "string" },
                   "email": { "type": "string" },
-                  "password": { "type": "string" }
+                  "password": { "type": "string" },
+                  "role": { "type": "string" }
                 }
               }
             }

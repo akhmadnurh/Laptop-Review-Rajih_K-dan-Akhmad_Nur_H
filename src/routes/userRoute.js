@@ -5,10 +5,10 @@ const {
   getProfileById,
   updateProfileDetail,
 } = require("../controllers/userController");
-const { jwtAuth } = require("../middlewares/authMiddleware");
+const { userAuth } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
-router.get("/profile/:id", jwtAuth, getProfileById);
-router.post("/profile", jwtAuth, updateProfileDetail);
+router.get("/profile/:id", userAuth, getProfileById);
+router.post("/profile", userAuth, updateProfileDetail);
 
 module.exports = router;
