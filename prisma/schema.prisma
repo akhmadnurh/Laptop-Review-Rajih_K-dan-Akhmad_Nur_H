@@ -17,6 +17,7 @@ model User {
   password  String    @db.VarChar(128)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now())
+  role      String    @db.VarChar(64)
   profile   Profile?
   review    Review[]
   sender    Message[] @relation("sender")
@@ -29,7 +30,7 @@ model Profile {
   name        String    @db.VarChar(128)
   address     String?   @db.Text
   phoneNumber String?   @db.VarChar(16)
-  bornDate    DateTime? @db.Date
+  bornDate    DateTime?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now())
   userId      Int       @unique
@@ -45,14 +46,15 @@ model Brand {
 }
 
 model Product {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(128)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  brandId   Int
-  brand     Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  detail    String?  @db.Text
-  review    Review[]
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(128)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  brandId     Int
+  brand       Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  description String?  @db.Text
+  sku         String?
+  review      Review[]
 }
 
 model Message {

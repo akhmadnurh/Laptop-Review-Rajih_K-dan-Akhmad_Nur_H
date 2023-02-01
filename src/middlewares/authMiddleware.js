@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 const jwtAuth = async (req, res, next) => {
+  const { role } = req.body;
   const authHeader = req.headers["authorization"];
 
   if (authHeader) {
@@ -10,7 +11,6 @@ const jwtAuth = async (req, res, next) => {
         return res.status(400).json({ msg: "Invalid token." });
       }
       req.user = decoded;
-
       next();
     });
   } else {

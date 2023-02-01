@@ -8,9 +8,9 @@ const prisma = new PrismaClient();
 const expiresIn = 36 * 60 * 60; // 36 Hours
 
 const register = async (req, res) => {
-  const { name, username, email, password } = req.body;
+  const { name, username, email, password, role } = req.body;
   //   console.log(req.body);
-  if (name && username && email && password) {
+  if (name && username && email && password && role) {
     // Check username & email availability
     const check = await prisma.user.findFirst({
       where: {
@@ -28,6 +28,7 @@ const register = async (req, res) => {
             username,
             email,
             password: hashedPassword,
+            role,
           },
         });
 
