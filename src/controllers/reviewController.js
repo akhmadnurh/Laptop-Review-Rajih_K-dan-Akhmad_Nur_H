@@ -6,7 +6,7 @@ const createReview = async (req, res) => {
   let { idProduct } = req.params;
   let { content, rating } = req.body;
   try {
-    if (content && rating) {
+    if (content && rating && Number(rating) <= 5 && Number(rating) >= 1) {
       await prisma.review.create({
         data: {
           content,
@@ -17,10 +17,12 @@ const createReview = async (req, res) => {
       });
       return res.status(200).json({ msg: "Success Create new Review" });
     } else {
-      return res.status(400).json({ msg: "The field is required." });
+      return res
+        .status(400)
+        .json({ msg: "The field is required. Rating range 1 - 5" });
     }
   } catch (error) {
-    return res.status(404).json({ msg: "id Product Not Found" });
+    return res.status(500).json(error.message);
   }
 };
 
@@ -41,7 +43,7 @@ const updateReview = async (req, res) => {
           ],
         },
       });
-      if (find) {
+      if (find && Number(rating) <= 5 && Number(rating) >= 1) {
         await prisma.review.update({
           where: {
             id: parseInt(idReview),
@@ -61,17 +63,17 @@ const updateReview = async (req, res) => {
       return res.status(400).json({ msg: "The field is required." });
     }
   } catch (error) {
-    return res.status(404).json({ msg: "id Review Not Found" });
+    return res.status(500).json(error.message);
   }
 };
 
 const getByIdReview = async (req, res) => {
-  let { id } = req.params;
+  let { idReview } = req.params;
 
   try {
     const find = await prisma.review.findFirstOrThrow({
       where: {
-        id: parseInt(id),
+        id: parseInt(idReview),
       },
       include: {
         comment: true,
@@ -79,7 +81,7 @@ const getByIdReview = async (req, res) => {
     });
     return res.status(200).json({ data: find });
   } catch (error) {
-    return res.status(404), json({ msg: "id Product Not Found" });
+    return res.status(500), json(error.message);
   }
 };
 
@@ -111,7 +113,7 @@ const deleteReview = async (req, res) => {
         .json({ msg: "Unauthorized. Cannot Delete the review" });
     }
   } catch (error) {
-    return res.status(404).json({ msg: "id Review Not Found" });
+    return res.status(500).json(error.message);
   }
 };
 

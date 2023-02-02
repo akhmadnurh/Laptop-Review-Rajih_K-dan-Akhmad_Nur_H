@@ -146,9 +146,13 @@ const getRating = async (req, res) => {
     });
     let totalRating = num.reduce((partialSum, a) => partialSum + a, 0);
     let rating = totalRating / num.length;
-    res.status(200).json({ data: rating.toString().slice(0, 5) });
+    if (rating) {
+      res.status(200).json({ data: rating.toString().slice(0, 5) });
+    } else {
+      res.status(400).json({ message: "no rating" });
+    }
   } catch (error) {
-    res.status(404).json({ msg: "id Not Found" });
+    res.status(500).json(error.message);
   }
 };
 module.exports = {

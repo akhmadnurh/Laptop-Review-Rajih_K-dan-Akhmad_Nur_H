@@ -10,12 +10,12 @@ const createBrand = async (req, res) => {
           name,
         },
       });
-      res.status(200).json({ message: "success create brand" });
+      return res.status(200).json({ message: "success create brand" });
     } else {
-      res.status(400).json({ message: "The name field is required." });
+      return res.status(400).json({ message: "The name field is required." });
     }
   } catch (error) {
-    return res.status(404).json({ message: "Bad Request" });
+    return res.status(500).json(error.message);
   }
 };
 
@@ -34,12 +34,12 @@ const updateBrand = async (req, res) => {
           updatedAt: new Date(),
         },
       });
-      res.status(200).json({ message: "success updated brand" });
+      return res.status(200).json({ message: "success updated brand" });
     } else {
-      res.status(400).json({ message: "The name field is required." });
+      return res.status(400).json({ message: "The name field is required." });
     }
   } catch (error) {
-    res.status(400).json({ message: "The name field is required." });
+    return res.status(500).json(error.message);
   }
 };
 
@@ -56,18 +56,18 @@ const getById = async (req, res) => {
       },
     });
 
-    res.status(200).json({ data: find });
+    return res.status(200).json({ data: find });
   } catch (error) {
-    res.status(404).json({ message: "Bad Request" });
+    return res.status(500).json(error.message);
   }
 };
 
 const getall = async (req, res) => {
   try {
     let get = await prisma.brand.findMany();
-    res.status(200).json({ data: get });
+    return res.status(200).json({ data: get });
   } catch (error) {
-    res.status(404).json({ message: "No Data Brand" });
+    return res.status(500).json(error.message);
   }
 };
 
@@ -81,9 +81,9 @@ const deleteBrand = async (req, res) => {
       },
     });
 
-    res.status(200).json({ message: "Success Delete Brand" });
+    return res.status(200).json({ message: "Success Delete Brand" });
   } catch (error) {
-    res.status(404).json({ message: "No Data Brand" });
+    return res.status(500).json(error.message);
   }
 };
 module.exports = { createBrand, getById, getall, updateBrand, deleteBrand };
