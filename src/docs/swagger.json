@@ -729,6 +729,22 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["content"],
+                "properties": {
+                  "content": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -796,6 +812,22 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["content"],
+                "properties": {
+                  "content": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -1298,7 +1330,7 @@
     "/review/{idReview}":{
       "get": {
         "description": "Get Review by ID.",
-        "tags": ["Review"],
+        "tags": ["Review - User"],
         "parameters": [
           {
             "name": "idReview",
