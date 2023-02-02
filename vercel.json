@@ -1,3 +1,3 @@
 {
-  "devCommand": "npm start"
+  "rewrites": [{ "source": "./app.js", "destination": "/api" }]
 }

@@ -8,9 +8,9 @@ const prisma = new PrismaClient();
 const expiresIn = 36 * 60 * 60; // 36 Hours
 
 const register = async (req, res) => {
-  let { name, username, email, password, role } = req.body;
+  let { name, username, email, password } = req.body;
   //   console.log(req.body);
-  if (name && username && email && password && role) {
+  if (name && username && email && password) {
     // Check username & email availability
     const check = await prisma.user.findFirst({
       where: {
@@ -28,7 +28,7 @@ const register = async (req, res) => {
             username,
             email,
             password: hashedPassword,
-            role: role === "admin" || role === "user" ? role : "user",
+            role: "user",
           },
         });
 
@@ -69,9 +69,13 @@ const login = async (req, res) => {
         const isPasswordValid = await bcrypt.compare(password, data.password);
 
         if (isPasswordValid) {
-          const token = jwt.sign({ userId: data.id }, process.env.JWT_SECRET, {
-            expiresIn,
-          });
+          const token = jwt.sign(
+            { userId: data.id, role: data.role },
+            process.env.JWT_SECRET,
+            {
+              expiresIn,
+            }
+          );
           return res.status(200).json({ msg: "Login success.", token });
         }
       }

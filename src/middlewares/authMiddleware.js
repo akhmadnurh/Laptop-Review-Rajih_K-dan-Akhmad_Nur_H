@@ -8,7 +8,6 @@ const userAuth = async (req, res, next) => {
       if (err) {
         return res.status(400).json({ msg: "Invalid token." });
       }
-
       req.user = decoded;
       next();
     });

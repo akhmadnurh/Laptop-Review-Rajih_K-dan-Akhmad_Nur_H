@@ -8,7 +8,7 @@ const {
 const { userAuth } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
-router.get("/profile/:id", userAuth, getProfileById);
+router.get("/profile", userAuth, getProfileById);
 router.post("/profile", userAuth, updateProfileDetail);
 
 module.exports = router;

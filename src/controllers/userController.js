@@ -2,10 +2,10 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const getProfileById = async (req, res) => {
-  let { id } = req.params;
+  let { userId } = req.user;
   try {
     const findProfile = await prisma.profile.findUniqueOrThrow({
-      where: { id: parseInt(id) },
+      where: { userId: parseInt(userId) },
       select: {
         name: true,
         address: true,
@@ -45,4 +45,5 @@ const updateProfileDetail = async (req, res) => {
     return res.status(400).json({ message: "The name field is required." });
   }
 };
+
 module.exports = { getProfileById, updateProfileDetail };
