@@ -573,7 +573,7 @@
         }
       }
     },
-    "/product/rating/{productId}":{
+    "/product/rating/{productId}": {
       "get": {
         "description": "Get rating products.",
         "tags": ["Rating"],
@@ -945,9 +945,9 @@
         }
       }
     },
-    "/brand":{
-      "post":{
-       "description": "Create Brand.",
+    "/brand": {
+      "post": {
+        "description": "Create Brand.",
         "security": [{ "bearerAuth": [] }],
         "tags": ["Brand"],
         "parameters": [
@@ -1083,8 +1083,8 @@
         }
       }
     },
-    "/brand/{id}":{
-    "get": {
+    "/brand/{id}": {
+      "get": {
         "description": "Get Brand by ID.",
         "tags": ["Brand"],
         "parameters": [
@@ -1132,7 +1132,7 @@
           }
         }
       },
-    "patch": {
+      "patch": {
         "description": "Update brand.",
         "tags": ["Brand"],
         "security": [{ "bearerAuth": [] }],
@@ -1229,7 +1229,7 @@
           }
         }
       },
-    "delete": {
+      "delete": {
         "description": "Delete brand.",
         "tags": ["Brand"],
         "security": [{ "bearerAuth": [] }],
@@ -1295,7 +1295,7 @@
         }
       }
     },
-    "/review/{idReview}":{
+    "/review/{idReview}": {
       "get": {
         "description": "Get Review by ID.",
         "tags": ["Review"],
@@ -1364,7 +1364,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["content","rating"],
+                "required": ["content", "rating"],
                 "properties": {
                   "content": {
                     "type": "string"
@@ -1510,7 +1510,7 @@
         }
       }
     },
-    "/review/{idProduct}":{
+    "/review/{idProduct}": {
       "post": {
         "description": "Update Review.",
         "tags": ["Review - User"],
@@ -1531,13 +1531,13 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["content","rating"],
+                "required": ["content", "rating"],
                 "properties": {
                   "content": {
                     "type": "string"
                   },
-                  "rating":{
-                    "type" : "integer"
+                  "rating": {
+                    "type": "integer"
                   }
                 }
               }
@@ -1611,9 +1611,8 @@
           }
         }
       }
-      
     },
-    "/profile":{
+    "/profile": {
       "get": {
         "description": "Get profile.",
         "tags": ["Profile"],
@@ -1687,10 +1686,10 @@
                   "address": {
                     "type": "string"
                   },
-                  "phoneNumber":{
+                  "phoneNumber": {
                     "type": "string"
                   },
-                  "bornDate":{
+                  "bornDate": {
                     "type": "string"
                   }
                 }
@@ -1766,7 +1765,7 @@
         }
       }
     },
-    "/message":{
+    "/message": {
       "get": {
         "description": "Get message.",
         "tags": ["Message"],
@@ -1823,7 +1822,7 @@
         }
       }
     },
-    "/message/receiver/{receiverId}":{
+    "/message/receiver/{receiverId}": {
       "get": {
         "description": "Get message by Id.",
         "tags": ["Message"],
@@ -1986,10 +1985,9 @@
           }
         }
       }
-      
     },
-    "/message/{messageId}":{
-    "delete": {
+    "/message/{messageId}": {
+      "delete": {
         "description": "Delete message.",
         "tags": ["Message"],
         "security": [{ "bearerAuth": [] }],
