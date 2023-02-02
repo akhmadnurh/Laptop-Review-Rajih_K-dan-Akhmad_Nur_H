@@ -5,15 +5,29 @@ const getMessage = async (req, res) => {
   const { userId } = req.user;
 
   try {
-    const data = await prisma.message.groupBy({
+    let data = await prisma.message.groupBy({
       by: ["receiverId"],
       where: {
-        senderId: parseInt(userId),
-      },
-      _count: {
-        receiverId: true,
+        OR: [{ senderId: parseInt(userId) }, { receiverId: parseInt(userId) }],
       },
     });
+
+    for (let i = 0; i < data.length; i++) {
+      const detailData = await prisma.user.findUnique({
+        where: {
+          id: data[i].receiverId,
+        },
+        select: {
+          profile: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+
+      data[i].name = detailData.profile.name;
+    }
 
     return res.status(200).json({ data });
   } catch (error) {
