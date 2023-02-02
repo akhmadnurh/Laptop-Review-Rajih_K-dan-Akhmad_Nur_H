@@ -13,6 +13,7 @@ const brand = require("./brandRoute");
 const review = require("./reviewRoute");
 const comment = require("./commentRoute");
 const product = require("./productRoute");
+const message = require("./messageRoute");
 
 const options = {
   customCssUrl:
@@ -30,5 +31,6 @@ router.use("/", brand);
 router.use("/", review);
 router.use("/", comment);
 router.use("/", product);
+router.use("/", message);
 
 module.exports = router;
