@@ -12,7 +12,7 @@ const router = express.Router();
 const basePath = "/comment";
 
 router.get(`${basePath}/`, userAuth, getCommentsByUserId);
-router.get(`${basePath}/review/:reviewId`, userAuth, getCommentsByReviewId);
+router.get(`${basePath}/review/:reviewId`, getCommentsByReviewId);
 router.post(`${basePath}/review/:reviewId`, userAuth, createComment);
 router.patch(`${basePath}/:commentId`, userAuth, updateComment);
 router.delete(`${basePath}/:commentId`, userAuth, deleteComment);

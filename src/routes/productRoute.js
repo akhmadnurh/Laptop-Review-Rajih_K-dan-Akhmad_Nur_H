@@ -7,7 +7,7 @@ const {
   createProduct,
   updateProduct,
   deleteProduct,
-  getRating,
+  // getRating,
 } = require("../controllers/productController");
 const router = express.Router();
 
@@ -18,6 +18,6 @@ router.get(`${basePath}/:productId`, getProductById);
 router.post(`${basePath}/`, adminAuth, createProduct);
 router.patch(`${basePath}/:productId`, adminAuth, updateProduct);
 router.delete(`${basePath}/:productId`, adminAuth, deleteProduct);
-router.get(`${basePath}/rating/:productId`, getRating);
+// router.get(`${basePath}/rating/:productId`, getRating);
 
 module.exports = router;

@@ -10,6 +10,10 @@ const getProducts = async (req, res) => {
       },
     });
 
+    for (let i = 0; i < data.length; i++) {
+      data[i].rating = await getRating(data[i].id);
+    }
+
     return res.status(200).json({ data });
   } catch (error) {
     return res.status(500).json({ msg: error.message });
@@ -30,6 +34,8 @@ const getProductById = async (req, res) => {
     });
 
     if (data) {
+      data.rating = await getRating(productId);
+
       return res.status(200).json({ data });
     } else {
       return res.status(404).json({ msg: "Product not found" });
@@ -128,8 +134,7 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-const getRating = async (req, res) => {
-  let { productId } = req.params;
+const getRating = async (productId) => {
   try {
     let find = await prisma.review.findMany({
       where: {
@@ -141,18 +146,18 @@ const getRating = async (req, res) => {
       },
     });
     let num = [];
-    find.map(data => {
+    find.map((data) => {
       num.push(data.rating);
     });
     let totalRating = num.reduce((partialSum, a) => partialSum + a, 0);
     let rating = totalRating / num.length;
     if (rating) {
-      res.status(200).json({ data: rating.toString().slice(0, 5) });
+      return rating.toString().slice(0, 5);
     } else {
-      res.status(400).json({ message: "no rating" });
+      return "0";
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    return "0";
   }
 };
 module.exports = {
@@ -161,5 +166,4 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
-  getRating,
 };
