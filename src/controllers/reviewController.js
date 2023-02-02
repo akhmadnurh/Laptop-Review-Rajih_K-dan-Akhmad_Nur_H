@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const createReaview = async (req, res) => {
+const createReview = async (req, res) => {
   let { userId } = req.user;
   let { idProduct } = req.params;
   let { content, rating } = req.body;
@@ -15,7 +15,7 @@ const createReaview = async (req, res) => {
           userId,
         },
       });
-      return res.status(200).json({ msg: "Success Create new Reaview" });
+      return res.status(200).json({ msg: "Success Create new Review" });
     } else {
       return res.status(400).json({ msg: "The field is required." });
     }
@@ -24,7 +24,7 @@ const createReaview = async (req, res) => {
   }
 };
 
-const updateReaview = async (req, res) => {
+const updateReview = async (req, res) => {
   let { userId } = req.user;
   let { idReview } = req.params;
   let { content, rating } = req.body;
@@ -51,7 +51,7 @@ const updateReaview = async (req, res) => {
             rating: Number(rating),
           },
         });
-        return res.status(200).json({ msg: "Success Update Reaview" });
+        return res.status(200).json({ msg: "Success Update Review" });
       } else {
         return res
           .status(401)
@@ -61,11 +61,11 @@ const updateReaview = async (req, res) => {
       return res.status(400).json({ msg: "The field is required." });
     }
   } catch (error) {
-    return res.status(404).json({ msg: "id Reaview Not Found" });
+    return res.status(404).json({ msg: "id Review Not Found" });
   }
 };
 
-const getByIdReaview = async (req, res) => {
+const getByIdReview = async (req, res) => {
   let { id } = req.params;
 
   try {
@@ -115,4 +115,4 @@ const deleteReview = async (req, res) => {
   }
 };
 
-module.exports = { createReaview, getByIdReaview, updateReaview, deleteReview };
+module.exports = { createReview, getByIdReview, updateReview, deleteReview };

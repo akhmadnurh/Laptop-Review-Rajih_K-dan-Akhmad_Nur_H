@@ -3,16 +3,16 @@ const express = require("express");
 
 const { userAuth, adminAuth } = require("../middlewares/authMiddleware");
 const {
-  createReaview,
-  getByIdReaview,
-  updateReaview,
+  createReview,
+  getByIdReview,
+  updateReview,
   deleteReview,
-} = require("../controllers/reaviewController");
+} = require("../controllers/reviewController");
 const router = express.Router();
 
-router.post("/review/:idProduct", userAuth, createReaview);
-router.get("/review/:id", getByIdReaview);
-router.patch("/review/:idReview", userAuth, updateReaview);
+router.post("/review/:idProduct", userAuth, createReview);
+router.get("/review/:id", getByIdReview);
+router.patch("/review/:idReview", userAuth, updateReview);
 router.delete("/review/:idReview", adminAuth, deleteReview);
 
 module.exports = router;
